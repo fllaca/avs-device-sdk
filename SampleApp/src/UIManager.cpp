@@ -14,6 +14,9 @@
  */
 
 #include <sstream>
+//extern "C" {
+//#include <wiringPi.h>
+//}
 
 #include "SampleApp/UIManager.h"
 
@@ -277,6 +280,9 @@ void UIManager::microphoneOn() {
 }
 
 void UIManager::printState() {
+
+    //wiringPiSetup();
+
     if (m_connectionStatus == avsCommon::sdkInterfaces::ConnectionStatusObserverInterface::Status::DISCONNECTED) {
         ConsolePrinter::prettyPrint("Client not connected!");
     } else if (m_connectionStatus == avsCommon::sdkInterfaces::ConnectionStatusObserverInterface::Status::PENDING) {
@@ -288,9 +294,11 @@ void UIManager::printState() {
                 return;
             case DialogUXState::LISTENING:
                 ConsolePrinter::prettyPrint("Listening...");
+		system("bash alexa-callback/listening.sh");
                 return;
             case DialogUXState::THINKING:
                 ConsolePrinter::prettyPrint("Thinking...");
+		system("bash alexa-callback/thinking.sh");
                 return;
                 ;
             case DialogUXState::SPEAKING:

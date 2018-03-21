@@ -72,6 +72,10 @@ void UserInputManager::run() {
     }
     m_interactionManager->begin();
     while (true) {
+	// TODO: hack that avoids read from input
+	std::this_thread::sleep_for(std::chrono::hours(1));
+	continue;
+	// END of the hack
         char x;
         std::cin >> x;
         x = ::tolower(x);
